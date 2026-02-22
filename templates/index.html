@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block body %}
+
+<div class="container my-4">
+
+    <h2 class="mb-4">Add a New Task</h2>
+
+    <form action="/" method="POST" class="p-4 rounded"
+          style="background-color: #1a1a1a; box-shadow: 0 0 12px rgba(255,255,255,0.08);">
+
+        <div class="mb-3">
+            <label class="form-label">Todo Title</label>
+            <input type="text" class="form-control" name="title" id="title">
+            <div class="form-text text-light">Add the title for your task.</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Todo Description</label>
+            <input type="text" class="form-control" name="desc" id="desc">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Due Date (optional)</label>
+            <input type="date" class="form-control" name="due_date" id="due_date">
+        </div>
+
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+
+</div>
+
+
+<div class="container my-5">
+
+    {% if alltodo|length == 0 %}
+        <h4 class="text-secondary">No Todo Tasks</h4>
+    {% else %}
+
+        <h3 class="mb-3">Your Todo List</h3>
+
+        <table class="table table-dark table-striped table-bordered align-middle"
+               style="border-radius: 12px; overflow: hidden;">
+
+            <thead class="table-light text-dark">
+                <tr>
+                    <th scope="col">Done</th>
+                    <th scope="col">SNo</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for todo in alltodo %}
+                <tr class="{% if todo.completed %}todo-completed{% endif %}">
+                    <td>
+                        <form action="/toggle/{{todo.sno}}" method="POST">
+                            <input class="form-check-input todo-checkbox" type="checkbox"
+                                   {% if todo.completed %}checked{% endif %}
+                                   onchange="this.form.submit()">
+                        </form>
+                    </td>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td class="todo-text">{{ todo.title }}</td>
+                    <td class="todo-text">{{ todo.desc }}</td>
+                    <td>
+                        {% if todo.due_date %}
+                            {{ todo.due_date.strftime("%d %b %Y") }}
+                        {% else %}
+                            <span class="text-secondary">No due date</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ todo.time.strftime("%d %b %Y, %I:%M %p") }}</td>
+
+                    <td>
+                        <a href="/update/{{todo.sno}}" 
+                           class="btn btn-sm btn-success mx-1">Update</a>
+
+                        <a href="/delete/{{todo.sno}}" 
+                           class="btn btn-sm btn-danger mx-1"
+                           onclick="return confirm('Delete this task?');">
+                           Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

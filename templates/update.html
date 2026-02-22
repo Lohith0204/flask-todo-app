@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update
+{% endblock %}
+
+{% block body %}
+<div class="container my-4">
+
+    <h2 class="mb-4">Update Task</h2>
+
+    <form action="/update/{{todo.sno}}" method="POST" class="p-4 rounded" 
+          style="background-color: #1a1a1a; box-shadow: 0 0 12px rgba(255,255,255,0.08);">
+
+        <div class="mb-3">
+            <label class="form-label">Todo Title</label>
+            <input type="text" class="form-control" name="title" id="title"
+                   value="{{todo.title}}">
+            <div class="form-text text-light">Update the title of your task.</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Todo Description</label>
+            <input type="text" class="form-control" name="desc" id="desc"
+                   value="{{todo.desc}}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Due Date (optional)</label>
+            <input type="date" class="form-control" name="due_date" id="due_date"
+                   value="{% if todo.due_date %}{{ todo.due_date.strftime('%Y-%m-%d') }}{% endif %}">
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="completed" id="completed"
+                   {% if todo.completed %}checked{% endif %}>
+            <label class="form-check-label" for="completed">Completed</label>
+        </div>
+
+        <button type="submit" class="btn btn-info mt-2">Update</button>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block body %}
+<div class="container my-4" style="max-width: 560px;">
+  <h2 class="mb-4">Create Account</h2>
+
+  {% if error %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+  {% endif %}
+
+  <form action="/register" method="POST" class="p-4 rounded"
+        style="background-color: #1a1a1a; box-shadow: 0 0 12px rgba(255,255,255,0.08);">
+
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      <input type="text" class="form-control" name="username" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" name="email" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" name="confirm_password" required>
+    </div>
+
+    <button type="submit" class="btn btn-info">Create account</button>
+    <a class="btn btn-link text-info" href="/login">Back to login</a>
+  </form>
+</div>
+{% endblock %}
