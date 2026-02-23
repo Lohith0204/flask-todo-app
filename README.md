@@ -5,7 +5,7 @@
 ---
 
 ### 🌐 Live Deployment
-- **App**: *Deploy on Vercel and add your URL here*
+- **App**: https://flask-todo-app-mu.vercel.app/
 
 ---
 
