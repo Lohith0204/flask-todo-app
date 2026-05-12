@@ -122,6 +122,7 @@ Todo-app/
 ├── app.py                # Flask app, models, routes, config
 ├── vercel.json           # Vercel deployment configuration
 ├── requirements.txt      # Pinned Python dependencies
+├── LICENSE
 ├── .gitignore
 └── README.md
 ```
